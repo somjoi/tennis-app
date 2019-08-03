@@ -10,12 +10,42 @@ describe("TennisApp", () => {
 
     expect(result).toBe("LOVE - LOVE");
   });
+
+  it('should echo "Fifteen - LOVE" when playerA get first score', () => {
+    const app = new TennisApp();
+    app.getScore("A");
+
+    let result = app.echo();
+
+    expect(result).toBe("Fifteen - LOVE");
+  });
+
+  it('should echo "Thirty - LOVE" when playerA get double score', () => {
+    const app = new TennisApp();
+    app.getScore("A");
+    app.getScore("A");
+
+    let result = app.echo();
+
+    expect(result).toBe("Thirty - LOVE");
+  });
 });
 
 class TennisApp {
-  constructor() {}
-  echo() {
-    return "LOVE - LOVE";
+  constructor() {
+    this.scoreA = 0;
+    this.scoreB = 0;
   }
-  getScore(playerName) {}
+  echo() {
+    if (this.scoreA === 15) {
+      return "Fifteen - LOVE";
+    } else if (this.scoreA === 30) {
+      return "Thirty - LOVE";
+    } else {
+      return "LOVE - LOVE";
+    }
+  }
+  getScore(playerName) {
+    this.scoreA += 15;
+  }
 }
